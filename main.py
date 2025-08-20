@@ -43,7 +43,7 @@ def main():
         # },config=config)
         for event in graph.stream({
             "messages":[{"role":"user","content":query}]
-        }):
+        },config=config):
             print(event)
 
 if __name__ == "__main__":
