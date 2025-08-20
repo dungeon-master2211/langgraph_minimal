@@ -38,10 +38,13 @@ def main():
     with MongoDBSaver.from_conn_string(DB_URI) as mongo_checkpointer:
         query = input("> ")
         graph = graph_with_checkpointer(graph_builder=graph_builder,checkpointer=mongo_checkpointer)
-        res = graph.invoke({
+        # res = graph.invoke({
+        #     "messages":[{"role":"user","content":query}]
+        # },config=config)
+        for event in graph.stream({
             "messages":[{"role":"user","content":query}]
-        },config=config)
-    print(res)
+        }):
+            print(event)
 
 if __name__ == "__main__":
     main()
